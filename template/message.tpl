@@ -1,0 +1,4 @@
+message {ClassName} {
+    {Fields}
+}
+

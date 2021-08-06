@@ -1,0 +1,40 @@
+{
+    "name": "dfvinogradoff/doctrine-proto-extractor",
+    "version": "0.0.1",
+    "description": "Tool for extract Protobuff from PHP Doctrine framework entity files",
+    "license": [
+        "Apache-2.0"
+    ],
+    "keywords": [
+        "doctrine",
+        "symfony",
+        "protobuf"
+    ],
+    "type": "symfony-bundle",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Dmitrii Vinogradov",
+            "email": "df.vinogradoff@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "symfony/console": "^5.3",
+        "symfony/var-dumper": "^5.3"
+    },
+    "autoload-dev": {
+    "psr-4": {
+        "Dfv\\DoctrineProtoExtractor\\": "src/"
+    }
+},
+    "require": {
+        "symfony/finder": "^5.3",
+        "symfony/config": "^5.3",
+        "symfony/yaml": "^5.3",
+        "doctrine/annotations": "^1.13",
+        "nikic/php-parser": "^4.12",
+        "phpstan/phpdoc-parser": "^0.5.5",
+        "doctrine/orm": "^2.9",
+        "symfony/serializer": "^5.3"
+    }
+}

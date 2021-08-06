@@ -1,0 +1,7 @@
+doctrine-proto:
+    protoVersion: proto3
+    denormalizationGroups: ["proto"]
+    from: file:///Users/user/PhpstormProjects/api/src/Entity
+    to: file:///Users/user/PhpstormProjects/grpc
+    package: company.team
+    filename: entities.proto
