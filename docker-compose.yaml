@@ -1,0 +1,12 @@
+version: '3.4'
+
+
+services:
+    extractor:
+        container_name: doctrine-proto-extractor
+        build:
+          context: ./
+        volumes:
+            - ./:/app:rw,delegated
+            # For Mac OS X users mount /Users directory with PHP project files
+            # - /Users:/Users:rw,delegated

@@ -1,4 +1,7 @@
-/vendor
+vendor
 composer.lock
 .idea
 config.yaml
+/output/*
+.DS_Store
+.run

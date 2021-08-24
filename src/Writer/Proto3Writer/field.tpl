@@ -1,0 +1,1 @@
+    {cardinality} {kind} {name} = {number};

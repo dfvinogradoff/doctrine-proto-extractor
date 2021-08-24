@@ -4,18 +4,24 @@
 namespace Dfv\DoctrineProtoExtractor\Extractor;
 
 
-use Doctrine\Common\Annotations\AnnotationReader;
+use Dfv\DoctrineProtoExtractor\Schema\Cardinality\RepeatedCardinality;
+use Dfv\DoctrineProtoExtractor\Schema\Field;
+use Dfv\DoctrineProtoExtractor\Schema\Message;
+use Dfv\DoctrineProtoExtractor\Schema\Proto;
+use Dfv\DoctrineProtoExtractor\Schema\Types\MessageType;
+use Dfv\DoctrineProtoExtractor\Writer\Proto3Writer;
+use Doctrine\ORM\Mapping\Column;
 use PhpParser\Error;
 use PhpParser\NodeTraverser;
 use PhpParser\ParserFactory;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 
 class AnnotationExtractor implements ExtractorInterface
 {
     /** @var Finder */
     private $finder;
+
+    /** @var array{from: string, denormalizationGroupTemplate: string, protoVersion: string, package: string, filename: string, service: string}  */
     private $config = [];
 
     public function __construct(Finder $finder, array $config)
@@ -32,7 +38,8 @@ class AnnotationExtractor implements ExtractorInterface
             ->in($this->config['from'])
             ->name('*.php');
 
-        $propertyTraverser = new PropertyTraverser();
+        $propertyTraverser = new PropertyVisitor();
+        $propertyTraverser->setGroupName($this->config['denormalizationGroupTemplate']);
 
         $traverser = new NodeTraverser();
         $traverser->addVisitor($propertyTraverser);
@@ -48,22 +55,10 @@ class AnnotationExtractor implements ExtractorInterface
             }
         }
 
-        $classMap = [];
-        foreach ($propertyTraverser->getEntities() as $className => $properties) {
-            foreach ($properties as $name => $annotations) {
-                foreach ($annotations as $annotation) {
-                    $serializer = new CamelCaseToSnakeCaseNameConverter();
-                    $groupName = strtr($this->config['denormalizationGroupTemplate'], [
-                        '{className}' => $serializer->normalize($className)
-                    ]);
-                    if ($annotation instanceof Groups) {
-                        if (in_array($groupName, $annotation->getGroups(), true)) {
-                            // dump($annotation);
-                            $classMap[$className][$name] = [];
-                        }
-                    }
-                }
-            }
-        }
+        // Just one type of Writer implemented
+        $writer = new Proto3Writer($propertyTraverser, $this->config['service'], $this->config['goPackage'], $this->config['package'], $this->config['protoVersion']);
+        $output = $writer->write();
+
+        file_put_contents(getcwd()."/".$this->config['filename'], $output);
     }
 }

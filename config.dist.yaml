@@ -1,7 +1,9 @@
 doctrine-proto:
     protoVersion: proto3
-    denormalizationGroups: ["proto"]
-    from: file:///Users/user/PhpstormProjects/api/src/Entity
-    to: file:///Users/user/PhpstormProjects/grpc
-    package: company.team
-    filename: entities.proto
+    denormalizationGroupTemplate: '{className}_update'
+    service: gRPCServiceName
+    from: file:///my/doctrine/project/src/Entity
+    to: file:///my/project/grpc/path/
+    package: company.service
+    goPackage: gitlab.com/group/project;pb
+    filename: /output/entities.proto
