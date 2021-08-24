@@ -44,7 +44,10 @@ class Entity extends \Dfv\DoctrineProtoExtractor\Schema\StringRenderer
 
     public function setName(string $name): void
     {
-        $this->name = $name;
+        $parts = explode("\\", $name);
+        $className = array_pop($parts);
+
+        $this->name = $className;
     }
 
     /**
