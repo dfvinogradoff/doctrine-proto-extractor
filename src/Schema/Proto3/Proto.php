@@ -1,7 +1,11 @@
 <?php
 
 
-namespace Dfv\DoctrineProtoExtractor\Schema;
+namespace Dfv\DoctrineProtoExtractor\Schema\Proto3;
+
+use Dfv\DoctrineProtoExtractor\Schema\Proto3\Message;
+use Dfv\DoctrineProtoExtractor\Schema\StringRenderer;
+use function Dfv\DoctrineProtoExtractor\Schema\strtr;
 
 class Proto extends StringRenderer
 {
@@ -80,8 +84,8 @@ class Proto extends StringRenderer
 
     public function render(): string
     {
-        $contents = file_get_contents(__DIR__ . '/../Writer/Proto3Writer/proto.tpl');
-        return strtr($contents, [
+        $contents = file_get_contents(__DIR__ . '/../../Writer/Proto3Writer/proto.tpl');
+        return \strtr($contents, [
             '{protoVersion}' => $this->getProtoVersion(),
             '{service}' => $this->getService(),
             '{methods}' => $this->stringify($this->getMethods()),

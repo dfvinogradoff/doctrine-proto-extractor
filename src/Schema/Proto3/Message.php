@@ -1,10 +1,13 @@
 <?php
 
 
-namespace Dfv\DoctrineProtoExtractor\Schema;
+namespace Dfv\DoctrineProtoExtractor\Schema\Proto3;
 
 
-use Dfv\DoctrineProtoExtractor\Schema\Types\CommonType;
+use Dfv\DoctrineProtoExtractor\Schema\Proto3\Field;
+use Dfv\DoctrineProtoExtractor\Schema\StringRenderer;
+use Dfv\DoctrineProtoExtractor\Schema\Proto3\Types\CommonType;
+use function Dfv\DoctrineProtoExtractor\Schema\strtr;
 
 class Message extends StringRenderer
 {
@@ -43,7 +46,7 @@ class Message extends StringRenderer
     }
 
     /**
-     * @param array<CommonType> $fields
+     * @param array<\Dfv\DoctrineProtoExtractor\Schema\Proto3\Types\CommonType> $fields
      */
     public function setFields(array $fields): void
     {
@@ -52,8 +55,8 @@ class Message extends StringRenderer
 
     public function render(): string
     {
-        $contents = file_get_contents(__DIR__ . '/../Writer/Proto3Writer/message.tpl');
-        return strtr($contents, [
+        $contents = file_get_contents(__DIR__ . '/../../Writer/Proto3Writer/message.tpl');
+        return \strtr($contents, [
             '{message}' => $this->getName(),
             '{fields}' => $this->stringify($this->getFields())
         ]);

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Dfv\DoctrineProtoExtractor\Schema\Cardinality;
+namespace Dfv\DoctrineProtoExtractor\Schema\Proto3\Cardinality;
 
 
 use Dfv\DoctrineProtoExtractor\Schema\ApplicableInterface;

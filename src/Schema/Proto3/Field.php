@@ -1,10 +1,12 @@
 <?php
 
 
-namespace Dfv\DoctrineProtoExtractor\Schema;
+namespace Dfv\DoctrineProtoExtractor\Schema\Proto3;
 
 
-use Dfv\DoctrineProtoExtractor\Schema\Types\CommonType;
+use Dfv\DoctrineProtoExtractor\Schema\StringRenderer;
+use Dfv\DoctrineProtoExtractor\Schema\Proto3\Types\CommonType;
+use function Dfv\DoctrineProtoExtractor\Schema\strtr;
 
 class Field extends StringRenderer
 {
@@ -86,8 +88,8 @@ class Field extends StringRenderer
 
     public function render(): string
     {
-        $contents = file_get_contents(__DIR__ . '/../Writer/Proto3Writer/field.tpl');
-        return strtr(trim($contents), [
+        $contents = file_get_contents(__DIR__ . '/../../Writer/Proto3Writer/field.tpl');
+        return \strtr(trim($contents), [
             '{cardinality}' => (string) $this->getCardinality(),
             '{kind}' => (string) $this->getKind(),
             '{name}' => $this->getName(),

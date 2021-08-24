@@ -1,19 +1,20 @@
 <?php
 
 
-namespace Dfv\DoctrineProtoExtractor\Writer;
+namespace Dfv\DoctrineProtoExtractor\Writer\Proto3Writer;
 
 
 use Dfv\DoctrineProtoExtractor\Extractor\PropertyVisitor;
-use Dfv\DoctrineProtoExtractor\Schema\Cardinality\OptionalCardinality;
-use Dfv\DoctrineProtoExtractor\Schema\Cardinality\RepeatedCardinality;
-use Dfv\DoctrineProtoExtractor\Schema\Field;
+use Dfv\DoctrineProtoExtractor\Schema\Proto3\Cardinality\OptionalCardinality;
+use Dfv\DoctrineProtoExtractor\Schema\Proto3\Cardinality\RepeatedCardinality;
+use Dfv\DoctrineProtoExtractor\Schema\Proto3\Field;
 use Dfv\DoctrineProtoExtractor\Schema\FieldFactory;
-use Dfv\DoctrineProtoExtractor\Schema\Message;
-use Dfv\DoctrineProtoExtractor\Schema\Method;
-use Dfv\DoctrineProtoExtractor\Schema\Proto;
-use Dfv\DoctrineProtoExtractor\Schema\Types\MessageType;
-use Dfv\DoctrineProtoExtractor\Schema\Types\StringType;
+use Dfv\DoctrineProtoExtractor\Schema\Proto3\Message;
+use Dfv\DoctrineProtoExtractor\Schema\Proto3\Method;
+use Dfv\DoctrineProtoExtractor\Schema\Proto3\Proto;
+use Dfv\DoctrineProtoExtractor\Schema\Proto3\Types\MessageType;
+use Dfv\DoctrineProtoExtractor\Schema\Proto3\Types\StringType;
+use Dfv\DoctrineProtoExtractor\Writer\WriterInterface;
 
 class Proto3Writer implements WriterInterface
 {

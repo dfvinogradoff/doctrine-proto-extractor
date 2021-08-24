@@ -10,10 +10,11 @@ abstract class StringRenderer implements RenderInterface
     }
 
     /**
-     * @param array $collection
+     * Make string from array of elements. Helper function
+     * @param array<StringerInterface> $collection
      * @return string
      */
-    public function stringify(array $collection)
+    public function stringify(array $collection): string
     {
         return implode(PHP_EOL, array_map(static function ($s) {
             return (string)$s;
