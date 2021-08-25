@@ -50,7 +50,7 @@ class Field extends StringRenderer
     /**
      * @return string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
@@ -68,7 +68,7 @@ class Field extends StringRenderer
         $contents = file_get_contents(__DIR__ . '/../../Writer/PlantUMLWriter/field.tpl');
         return \strtr($contents, [
             '{name}' => $this->getName(),
-            '{kind}' => $this->getType() ?? $this->getKind() ?? $this->getKind()->getName(),
+            '{kind}' => $this->getType() ?? ($this->getKind() ? $this->getKind()->getName() : 'Any'),
         ]);
     }
 

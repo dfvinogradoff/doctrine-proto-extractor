@@ -43,14 +43,13 @@ class PlantUMLWriter implements WriterInterface
             foreach ($properties as $name => $annotations) {
                 $field = new Field();
                 $field->setName($name);
-                $field->setType('String');
 
                 $relation = null;
                 foreach ($annotations as $annotation) {
                     if ($annotation instanceof \Doctrine\ORM\Mapping\OneToOne) {
                         $to = new Entity();
                         $to->setName($annotation->targetEntity);
-                        $field->setKind($entity);
+                        $field->setKind($to);
                         $relation = new Relation();
                         $relation->setFrom($entity);
                         $relation->setTo($to);
@@ -60,7 +59,7 @@ class PlantUMLWriter implements WriterInterface
                     if ($annotation instanceof \Doctrine\ORM\Mapping\OneToMany) {
                         $to = new Entity();
                         $to->setName($annotation->targetEntity);
-                        $field->setKind($entity);
+                        $field->setKind($to);
                         $relation = new Relation();
                         $relation->setFrom($entity);
                         $relation->setTo($to);
@@ -70,7 +69,7 @@ class PlantUMLWriter implements WriterInterface
                     if ($annotation instanceof \Doctrine\ORM\Mapping\ManyToMany) {
                         $to = new Entity();
                         $to->setName($annotation->targetEntity);
-                        $field->setKind($entity);
+                        $field->setKind($to);
                         $relation = new Relation();
                         $relation->setFrom($entity);
                         $relation->setTo($to);
@@ -80,13 +79,16 @@ class PlantUMLWriter implements WriterInterface
                     if ($annotation instanceof \Doctrine\ORM\Mapping\ManyToOne) {
                         $to = new Entity();
                         $to->setName($annotation->targetEntity);
-                        $field->setKind($entity);
+                        $field->setKind($to);
                         $relation = new Relation();
                         $relation->setFrom($entity);
                         $relation->setTo($to);
                         $relation->setField($field);
                         $relation->setAssociation(new Association(ClassMetadataInfo::MANY_TO_ONE));
                     }
+                }
+                if (!$relation) {
+                    $field->setType('Any');
                 }
                 $uml->addRelation($relation);
                 $entity->addField($field);
