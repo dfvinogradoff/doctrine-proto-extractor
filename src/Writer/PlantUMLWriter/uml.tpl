@@ -1,0 +1,4 @@
+@startuml
+{entities}
+{relations}
+@enduml

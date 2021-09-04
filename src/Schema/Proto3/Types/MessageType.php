@@ -1,6 +1,8 @@
 <?php
 
-namespace Dfv\DoctrineProtoExtractor\Schema\Types;
+namespace Dfv\DoctrineProtoExtractor\Schema\Proto3\Types;
+
+use Dfv\DoctrineProtoExtractor\Schema\Proto3\Types\CommonType;
 
 class MessageType extends CommonType
 {

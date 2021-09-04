@@ -4,12 +4,13 @@
 namespace Dfv\DoctrineProtoExtractor\Extractor;
 
 
-use Dfv\DoctrineProtoExtractor\Schema\Cardinality\RepeatedCardinality;
-use Dfv\DoctrineProtoExtractor\Schema\Field;
-use Dfv\DoctrineProtoExtractor\Schema\Message;
-use Dfv\DoctrineProtoExtractor\Schema\Proto;
-use Dfv\DoctrineProtoExtractor\Schema\Types\MessageType;
-use Dfv\DoctrineProtoExtractor\Writer\Proto3Writer;
+use Dfv\DoctrineProtoExtractor\Schema\Proto3\Cardinality\RepeatedCardinality;
+use Dfv\DoctrineProtoExtractor\Schema\Proto3\Field;
+use Dfv\DoctrineProtoExtractor\Schema\Proto3\Message;
+use Dfv\DoctrineProtoExtractor\Schema\Proto3\Proto;
+use Dfv\DoctrineProtoExtractor\Schema\Proto3\Types\MessageType;
+use Dfv\DoctrineProtoExtractor\Writer\PlantUMLWriter\PlantUMLWriter;
+use Dfv\DoctrineProtoExtractor\Writer\Proto3Writer\Proto3Writer;
 use Doctrine\ORM\Mapping\Column;
 use PhpParser\Error;
 use PhpParser\NodeTraverser;
@@ -60,5 +61,10 @@ class AnnotationExtractor implements ExtractorInterface
         $output = $writer->write();
 
         file_put_contents(getcwd()."/".$this->config['filename'], $output);
+
+        $writer = new PlantUMLWriter($propertyTraverser, $this->config['service'], $this->config['goPackage'], $this->config['package'], $this->config['protoVersion']);
+        $output = $writer->write();
+
+        file_put_contents(getcwd()."/".$this->config['filename'].'.puml', $output);
     }
 }
