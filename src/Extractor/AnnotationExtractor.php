@@ -65,6 +65,6 @@ class AnnotationExtractor implements ExtractorInterface
         $writer = new PlantUMLWriter($propertyTraverser, $this->config['service'], $this->config['goPackage'], $this->config['package'], $this->config['protoVersion']);
         $output = $writer->write();
 
-        file_put_contents(getcwd()."/".$this->config['filename'].'.uml_schema', $output);
+        file_put_contents(getcwd()."/".$this->config['filename'].'.puml', $output);
     }
 }
